@@ -1,3 +1,9 @@
 export const parseEnv = () => {
-    // Write your code here 
+  Object.keys(process.env).forEach(el => {
+    if (el.startsWith('RSS_')) {
+      console.log(process.env[el])
+    }
+  });
 };
+
+parseEnv()
