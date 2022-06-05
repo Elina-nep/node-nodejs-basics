@@ -3,12 +3,15 @@ import {
   Worker,
 } from 'node:worker_threads';
 import os from 'os'
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
 
 export const performCalculations = async() => {
   const cpuCount = os.cpus().length
   const results = [];
   for (let i = 0; i < cpuCount; i++) {
-    const worker = new Worker(path.resolve('worker.js'), { workerData: i + 10 })
+    const worker = new Worker(path.resolve(dirname(fileURLToPath(
+      import.meta.url)), 'worker.js'), { workerData: i + 10 })
     const result = new Promise((resolve) => {
       let data;
       worker.on('exit', (code) => {

@@ -14,10 +14,12 @@ export let unknownObject;
 
 if (random > 0.5) {
   unknownObject =
-    import ('./files/a.json', { assert: { type: 'json' } });
+    import (path.resolve(dirname(fileURLToPath(
+      import.meta.url)), 'files', 'a.json'), { assert: { type: 'json' } });
 } else {
   unknownObject =
-    import ('./files/b.json', { assert: { type: 'json' } });
+    import (path.resolve(dirname(fileURLToPath(
+      import.meta.url)), 'files', 'b.json'), { assert: { type: 'json' } });
 }
 
 console.log(`Release ${os.release()}`);

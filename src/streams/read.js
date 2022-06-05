@@ -1,9 +1,12 @@
 import fs from 'fs';
 import path from 'path';
+import { fileURLToPath } from 'url'
+import { dirname } from 'path'
 
 export const read = async() => {
   const readableStream = fs.createReadStream(
-    path.join('files', 'fileToRead.txt'),
+    path.resolve(dirname(fileURLToPath(
+      import.meta.url)), 'files', 'fileToRead.txt'),
     'utf-8'
   );
   let data = '';
