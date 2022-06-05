@@ -1,27 +1,16 @@
-import fs from 'fs';
-import path from 'path';
-import readline from 'readline';
+import { Transform } from 'stream'
 
 export const transform = async() => {
 
-  const rl = readline.createInterface({
-    input: process.stdin,
-    output: process.stdout,
-    prompt: 'Start your text here: \n'
+  const reverse = new Transform({
+    transform(line, enc, cb) {
+      this.push([...line.toString()].reverse().join(""));
+      cb()
+    }
   });
-  rl.prompt();
-  rl.on('line', (line) => {
 
+  process.stdin.pipe(reverse).pipe(process.stdout)
 
-    console.log('All saved!');
-
-    process.exit(0);
-
-  }).on('close', () => {
-    outputFile.close();
-    process.exit(0);
-
-  });
 };
 
 transform()
